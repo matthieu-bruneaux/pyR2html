@@ -9,6 +9,8 @@ _SCRIPT_DESCRIPTION = (""
 "\n"
 "Parsing rules are as follows, and applied in this order:\n"
 "- Each lines is stripped of white characters (from the right)\n"
+"- The line \"## @end@\" will cause the parser to stop before the end of"
+"  the input file\n"
 "- If a line ends with \"@\", it is exported as a blank line\n"
 "- If a line starts with \"### \", it is considered a header line\n"
 "- If a line starts with \"## \", it is considered a code comment (to be\n"
@@ -167,7 +169,12 @@ def parseInputFile(filename) :
         for l in fi :
             # We read line by line
             l = l.rstrip()
-            if l.endswith("@") :
+            if l == "## @end@" :
+                print("End tag detected, skipping the rest of the file")
+                for l in fi :
+                    pass
+                l = ""
+            elif l.endswith("@") :
                 l = ""
             elif l.startswith("### ") :
                 l = _parseHeader(l)
