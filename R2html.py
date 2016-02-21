@@ -67,6 +67,78 @@ _MY_TAG_LENGTH=6
 # myOutputFileRmd = myRawFile + ".Rmd"
 # logging.info("Rmd output file is: " + myOutputFileRmd)
 
+### *** Extra CSS
+
+INSERT_AFTER_PATTERN= """
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+"""
+
+EXTRA_CSS = """
+
+<!-- Floating TOC, cf. http://rpubs.com/stevepowell99/floating-css -->
+<style type="text/css">
+#toc {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  overflow:auto;
+  padding-left: 10px;
+  padding-top: 5px;
+  background: #111111;
+  color: #888888;
+}
+
+#toc-header {
+  text-align: center;
+}
+
+#toc a {
+  color: #888888;
+  text-decoration: none;
+}
+
+#toc ul {
+  color: #888888;
+  margin-left: 0px;
+  padding-left: 7px;
+  list-style-type: disc;
+}
+
+#toc ul a {
+  color: lightblue;
+}
+
+#toc ul ul a {
+  color: orange;
+}
+
+#toc ul ul ul a {
+  color: lightgreen;
+}
+
+#toc ul ul ul ul a {
+  color: indianred;
+}
+
+#toc ul ul ul ul ul a {
+  color: orchid;
+}
+
+body {
+	margin-left: 210px;
+}
+
+</style>
+
+"""
+
 ### * Functions
 
 ### ** randomTag(n)
@@ -152,6 +224,33 @@ def _parseCode(line) :
     """
     return("```{r}\n" + line + "\n```")
 
+### ** _insertInFile(filename, pattern, insert)
+
+def _insertInFile(filename, pattern, insert) :
+    """Insert a string into a file content
+
+    Args:
+        filename (str): Input file (will be overwritten)
+        pattern (str): String is inserted after the first occurrence of this
+          pattern
+        insert (str): String to insert
+
+    Returns:
+        None, but overwrites the input file. If pattern is not found, the 
+          content is not modified
+    """
+    with open(filename, "r") as fi:
+        content = fi.read()
+    location = content.find(pattern)
+    if (location < 0):
+        pass
+    else:
+        location = location + len(pattern)
+        content = content[0:location] + insert + content[location:]
+        with open(filename, "w") as fo:
+            fo.write(content)
+    return None
+    
 ### ** parseInputFile(filename)
 
 def parseInputFile(filename) :
@@ -271,7 +370,9 @@ def _main() :
 
     # Convert the Rmd file to html output
     knitRmdFile(rmdFile, args.arguments)
-
+    # Add extra CSS
+    _insertInFile(rmdFile[:-4] + ".html", INSERT_AFTER_PATTERN, EXTRA_CSS)
+    
     # Cleanup
     if not args.keepRmd :
         os.remove(rmdFile)
