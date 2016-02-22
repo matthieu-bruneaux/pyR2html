@@ -311,6 +311,7 @@ def knitRmdFile(RmdFile, argumentsToRScript) :
     # http://stackoverflow.com/questions/28295282/controlling-the-output-from-knit2html
     Rcmd += "opts_chunk$set(fig.path=\"" + figureFolder + "/\"); "
     Rcmd += "opts_chunk$set(fig.width=11); "
+    Rcmd += "opts_chunk$set(dev=\"CairoPNG\"); " # https://gist.github.com/taniki/5133358
     Rcmd += "knit2html(\"" + RmdFile + "\", options = c(\"toc\", markdown::markdownHTMLOptions(TRUE)))"
     c.append(Rcmd)
     if not type(argumentsToRScript) is list :
