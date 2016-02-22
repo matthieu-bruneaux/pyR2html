@@ -1,0 +1,55 @@
+* Purpose
+
+The idea behind this utility is to be able to generate automatic reports from
+raw R scripts, which can be run directly using =Rscript= at the command line,
+i.e. without using literal programming and code chunks inside a literal
+programming script.
+
+* Input files
+
+Any regular R script can be used. Comments are used to give structure and
+context to the code and results, if desired.
+
+** Headers and sections
+
+Sections can be defined within the R file like this:
+#+BEGIN_SRC R
+### * This is my top header
+x = 10
+### ** This is a second level header
+y = rnorm(10) + x
+### ** Another one on second level
+plot(x, y)
+#+END_SRC
+
+The syntax is three =#= plus one space, and then as many =*= as what the header
+level is. It is inspired by the =org-struct= minor mode in Emacs: you can use
+it withint Emacs to fold your code a la org mode! I find it extremely useful
+when writing long scripts.
+
+** Text
+
+Simple text can be inserted behind one =#= like this:
+#+BEGIN_SRC 
+### * Big header
+x = 10
+y = 10
+# After setting our variables x and y, we can do some math:
+x + y
+# Impressive, isn't?
+#+END_SRC
+
+** Code comments
+
+Text which should remain as code comment, not text in the output, is inserted
+=##=:
+#+BEGIN_SRC 
+### * Big header again
+x = 10
+y = 10
+## z is a 2D kernel (this is a code comment)
+library(MASS)
+z = kde2d(x, y)
+# We just performed a calculation of 2D density map using the MASS package.
+# By the way, this is regular text, not code comment.
+#+END_SRC
