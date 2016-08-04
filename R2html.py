@@ -93,13 +93,29 @@ EXTRA_CSS = """
   position: fixed;
   left: 0;
   top: 0;
-  width: 300px;
   height: 100%;
   overflow:auto;
   padding-left: 10px;
   padding-top: 5px;
-  background: #111111;
+  background: #282828;
   color: #888888;
+}
+
+#toc {
+   width: 200px;   
+} 
+
+body {
+	margin-left: 210px;
+}
+
+@media only screen and (min-width: 800px) {
+  #toc {
+   width: 300px;   
+  } 
+  body {
+    margin-left: 310px;    
+  }
 }
 
 #toc-header {
@@ -138,10 +154,6 @@ EXTRA_CSS = """
 
 #toc ul ul ul ul ul a {
   color: #F0F9E8;
-}
-
-body {
-	margin-left: 310px;
 }
 
 table {
