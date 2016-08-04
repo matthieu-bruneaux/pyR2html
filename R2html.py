@@ -78,6 +78,13 @@ INSERT_AFTER_PATTERN= """
 </style>
 """
 
+# Other colors for headings:
+# lightblue
+# orange
+# lightgreen
+# indianred
+# orchid
+
 EXTRA_CSS = """
 
 <!-- Floating TOC, cf. http://rpubs.com/stevepowell99/floating-css -->
@@ -86,7 +93,7 @@ EXTRA_CSS = """
   position: fixed;
   left: 0;
   top: 0;
-  width: 200px;
+  width: 300px;
   height: 100%;
   overflow:auto;
   padding-left: 10px;
@@ -112,28 +119,47 @@ EXTRA_CSS = """
 }
 
 #toc ul a {
-  color: lightblue;
+  text-decoration: underline;
+  color: #BAE4BC;
 }
 
 #toc ul ul a {
-  color: orange;
+  text-decoration: none;
+  color: #7BCCC4;
 }
 
 #toc ul ul ul a {
-  color: lightgreen;
+  color: #43A2CA;
 }
 
 #toc ul ul ul ul a {
-  color: indianred;
+  color: #0868AC;
 }
 
 #toc ul ul ul ul ul a {
-  color: orchid;
+  color: #F0F9E8;
 }
 
 body {
-	margin-left: 210px;
+	margin-left: 310px;
 }
+
+table {
+  margin: auto;
+    border-collapse: collapse;
+}
+
+th,td {
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+}
+
+thead {
+ 
+  border-bottom: 1pt solid black;
+}
+
 
 </style>
 
