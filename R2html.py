@@ -168,11 +168,20 @@ th,td {
 }
 
 thead {
- 
   border-bottom: 1pt solid black;
 }
 
+code {
+  background-color: #f3f3f3;
+  margin-left: 20px;
+  border: none;
+  border-left: solid 2px #009acd;
+}
 
+code.r {
+  background-color: #f3f3f3;
+  border: solid 1px #00688b;
+}
 </style>
 
 """
