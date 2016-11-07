@@ -102,11 +102,13 @@ EXTRA_CSS = """
 }
 
 #toc {
-   width: 200px;   
+  width: 200px;   
+  font-size: 14px;
 } 
 
 body {
-	margin-left: 210px;
+  margin-left: 210px;
+  font-size: 16px;
 }
 
 @media only screen and (min-width: 800px) {
@@ -176,11 +178,19 @@ code {
   margin-left: 20px;
   border: none;
   border-left: solid 2px #009acd;
+  font-size: 14px;
 }
 
 code.r {
   background-color: #f3f3f3;
   border: solid 1px #00688b;
+}
+
+img {
+  display: block;
+  margin: auto;
+  padding-top: 5px;
+  padding-bottom: 20px;
 }
 </style>
 
@@ -357,8 +367,11 @@ def knitRmdFile(RmdFile, argumentsToRScript) :
     #Rcmd += "options(markdown.HTML.stylesheet = \"main.css\"); "
     # http://stackoverflow.com/questions/28295282/controlling-the-output-from-knit2html
     Rcmd += "opts_chunk$set(fig.path=\"" + figureFolder + "/\"); "
-    Rcmd += "opts_chunk$set(fig.width=11); "
-    Rcmd += "opts_chunk$set(dev=\"CairoPNG\"); " # https://gist.github.com/taniki/5133358
+    Rcmd += "opts_chunk$set(fig.width=8); "
+    Rcmd += "opts_chunk$set(fig.height=8); "
+    # http://gforge.se/2014/01/fast-track-publishing-using-knitr-part-iii/
+    ##Rcmd += "opts_chunk$set(dev=\"png\", dev.args=list(type=\"cairo-png\"), dpi=96); "
+    Rcmd += "opts_chunk$set(dev=\"CairoPNG\", dev.args=list(pointsize=16)); " # https://gist.github.com/taniki/5133358
     Rcmd += "knit2html(\"" + RmdFile + "\", options = c(\"toc\", markdown::markdownHTMLOptions(TRUE)))"
     c.append(Rcmd)
     if not type(argumentsToRScript) is list :
