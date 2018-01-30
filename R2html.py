@@ -442,3 +442,9 @@ def _main() :
 
     # Change the html output name
     os.rename(rmdFile[:-4] + ".html", args.rscript[0][:-2] + ".html")
+
+### * if __name__ == "__main__"
+
+if __name__ == "__main__" :
+
+    _main()
